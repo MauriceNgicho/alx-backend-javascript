@@ -11,9 +11,8 @@ function countStudents(path) {
       }
 
       const lines = data.trim().split('\n');
-      const headers = lines[0].split(',');
 
-      const students = lines.slice(1).filter(line => line.trim() !== '').map(line => {
+      const students = lines.slice(1).filter((line) => line.trim() !== '').map((line) => {
         const student = line.split(',');
         return {
           firstname: student[0],
@@ -31,7 +30,9 @@ function countStudents(path) {
 
       let output = `Number of students: ${students.length}`;
       for (const field in grouped) {
-        output += `\nNumber of students in ${field}: ${grouped[field].length}. List: ${grouped[field].join(', ')}`;
+        if (Object.prototype.hasOwnProperty.call(grouped, field)) {
+          output += `\nNumber of students in ${field}: ${grouped[field].length}. List: ${grouped[field].join(', ')}`;
+        }
       }
 
       resolve(output);
